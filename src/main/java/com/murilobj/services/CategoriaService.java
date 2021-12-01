@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.murilobj.domain.Categoria;
 import com.murilobj.repositories.CategoriaRepository;
 
-@Service
-public class CategoriaService {
+	@Service
+	public class CategoriaService {
 	
 	@Autowired
 	private CategoriaRepository repo;
