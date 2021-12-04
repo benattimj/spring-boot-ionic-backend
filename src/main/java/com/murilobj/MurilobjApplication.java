@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.murilobj.domain.Categoria;
+import com.murilobj.domain.City;
+import com.murilobj.domain.Estado;
 import com.murilobj.domain.Produto;
 import com.murilobj.repositories.CategoriaRepository;
+import com.murilobj.repositories.CityRepository;
+import com.murilobj.repositories.EstadoRepository;
 import com.murilobj.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -19,6 +23,10 @@ public class MurilobjApplication implements CommandLineRunner {
 	private CategoriaRepository categoriaRepository;
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	@Autowired
+	private CityRepository cityRepository;
+	@Autowired
+	private EstadoRepository estadoRepository;
 	
 	
 	public static void main(String[] args) {
@@ -41,9 +49,24 @@ public class MurilobjApplication implements CommandLineRunner {
 		p1.getCategorias().addAll(Arrays.asList(cat1));		
 		p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
-
+	
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
+
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "São Paulo");
+		
+		City c1 = new City(null, "Uberlândia", est1);
+		City c2 = new City(null, "São Paulo", est2);
+		City c3 = new City(null, "Campinas", est2);
+		
+		est1.getCities().addAll(Arrays.asList(c1));
+		est2.getCities().addAll(Arrays.asList(c2,c3));
+
+		estadoRepository.saveAll(Arrays.asList(est1,est2));
+		cityRepository.saveAll(Arrays.asList(c1,c2,c3));
+		
+		
 	}
 
 }
