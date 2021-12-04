@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.murilobj.domain.Categoria;
 import com.murilobj.repositories.CategoriaRepository;
+import com.murilobj.services.exception.ObjectNotFoundException;
 
 	@Service
 	public class CategoriaService {
@@ -16,7 +17,12 @@ import com.murilobj.repositories.CategoriaRepository;
 	
 	public Categoria find(Integer id) { 
 		 Optional<Categoria> obj = repo.findById(id); 
-		return obj.orElse(null); 
+		if (obj == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! id: " + id 
+					+ ",Tipo: " + Categoria.class.getName());
+						
+		}
+		 return obj.orElse(null); 
 	}
 
 	public Categoria buscar(Integer id) {
