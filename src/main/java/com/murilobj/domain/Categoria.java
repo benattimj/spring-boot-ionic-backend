@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,13 +30,17 @@ public class Categoria implements Serializable {
 	private String nome;
 	
 	@JsonManagedReference
-	@ManyToMany(mappedBy ="categorias")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy ="categorias")
 	private List<Produto> produtos = new ArrayList<>();
 
 	public Categoria(String nome, Integer id) {
 		super();
 		this.id = id;
 		this.nome = nome;
+	}
+	
+	public Categoria() {
+
 	}
 
 	public String getNome() {
