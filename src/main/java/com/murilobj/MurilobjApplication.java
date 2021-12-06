@@ -7,12 +7,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.murilobj.domain.Address;
 import com.murilobj.domain.Categoria;
 import com.murilobj.domain.City;
+import com.murilobj.domain.Cliente;
 import com.murilobj.domain.Estado;
 import com.murilobj.domain.Produto;
+import com.murilobj.domain.enums.TipoCliente;
+import com.murilobj.repositories.AddressRepository;
 import com.murilobj.repositories.CategoriaRepository;
 import com.murilobj.repositories.CityRepository;
+import com.murilobj.repositories.ClienteRepository;
 import com.murilobj.repositories.EstadoRepository;
 import com.murilobj.repositories.ProdutoRepository;
 
@@ -27,7 +32,10 @@ public class MurilobjApplication implements CommandLineRunner {
 	private CityRepository cityRepository;
 	@Autowired
 	private EstadoRepository estadoRepository;
-	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private AddressRepository addresRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(MurilobjApplication.class, args);
@@ -66,7 +74,17 @@ public class MurilobjApplication implements CommandLineRunner {
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cityRepository.saveAll(Arrays.asList(c1,c2,c3));
 		
+		Cliente cli1 = new Cliente (null,"Mariana Benatti", "mariana@gmail.com", "63025875612", "384 almirante barroso", TipoCliente.INDIVIDUAL);
+		cli1.getTelefones().addAll(Arrays.asList("921759875"));
 		
+		Address a1 = new Address(null, "Uberlândia", "38412037","384", "Almirante Barroso", cli1, c1);
+		Address a2 = new Address(null, "São Paulo", "10159877","124", "Tamilt Doi", cli1, c2);
+		
+		cli1.getAddress().addAll(Arrays.asList(a1,a2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		addresRepository.saveAll(Arrays.asList(a1,a2));
+		 
 	}
 
 }
