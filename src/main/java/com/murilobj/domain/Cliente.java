@@ -38,6 +38,9 @@ public class Cliente {
 	@CollectionTable(name="Telephone")
 	private Set<String> telephone = new HashSet<>();
 	
+	
+	private List<Pedido> pedidos = new ArrayList<>();
+	
 	public Cliente() {
 			}
 
@@ -115,6 +118,17 @@ public class Cliente {
 		this.telephone = telefones;
 	}
 
+	public void setAddressLine(String addressLine) {
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -132,8 +146,7 @@ public class Cliente {
 		return Objects.equals(id, other.id);
 	}
 
-	public void setAddressLine(String addressLine) {
-	}
+
 
 
 }
