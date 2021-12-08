@@ -77,12 +77,19 @@ public class MurilobjApplication implements CommandLineRunner {
 		Cliente cli1 = new Cliente (null,"Mariana Benatti", "mariana@gmail.com", "63025875612", "384 almirante barroso", TipoCliente.INDIVIDUAL);
 		cli1.getTelefones().addAll(Arrays.asList("921759875"));
 		
+		Cliente cli2 = new Cliente (null," Benatti", "mar@gmail.com", "630875612", "84 almirante barroso", TipoCliente.INDIVIDUAL);
+		cli2.getTelefones().addAll(Arrays.asList("920009875"));
+		
+		
 		Address a1 = new Address(null, "Uberlândia", "38412037","384", "Almirante Barroso", cli1, c1);
-		Address a2 = new Address(null, "São Paulo", "10159877","124", "Tamilt Doi", cli1, c2);
+		Address a2 = new Address(null, "São Paulo", "10159877","124", "Tamilt Doi", cli2, c2);
 		
 		cli1.getAddress().addAll(Arrays.asList(a1,a2));
+		cli2.getAddress().addAll(Arrays.asList(a1,a2));
 		
-		clienteRepository.saveAll(Arrays.asList(cli1));
+	
+		
+		clienteRepository.saveAll(Arrays.asList(cli1,cli2));
 		addresRepository.saveAll(Arrays.asList(a1,a2));
 		 
 	}

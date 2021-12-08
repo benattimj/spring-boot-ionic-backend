@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.murilobj.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 @Entity
@@ -30,8 +30,8 @@ public class Address implements Serializable {
 		private String postcode;
 		private String number;
 		private String AddressLine;
-		private TipoCliente tipo;
-
+		
+		@JsonBackReference
 		@ManyToOne
 		@JoinColumn(name="cliente_id")
 		private Cliente cliente;

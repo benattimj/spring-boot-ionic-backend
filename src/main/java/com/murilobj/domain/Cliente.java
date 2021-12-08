@@ -9,11 +9,13 @@ import java.util.Set;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.murilobj.domain.enums.TipoCliente;
 
 
@@ -28,7 +30,8 @@ public class Cliente {
 	private String CPF_or_CNPJ;
 	private Integer tipo;
 	
-	@OneToMany(mappedBy="cliente")
+	@JsonManagedReference
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="cliente")
 	private List<Address> address = new ArrayList<>();
 	
 	@ElementCollection
@@ -104,6 +107,7 @@ public class Cliente {
 	}
 
 	public Set<String> getTelefones() {
+		telephone = new HashSet<>();
 		return telephone;
 	}
 
