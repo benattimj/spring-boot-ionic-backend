@@ -2,8 +2,11 @@ package com.murilobj.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 import com.murilobj.domain.enums.StatePayment;
 
+@Entity
 public class BankSlipPayment extends Payment {
 	private static final long serialVersionUID = 1L;
 	

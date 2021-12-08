@@ -1,7 +1,10 @@
 package com.murilobj.domain;
 
+import javax.persistence.Entity;
+
 import com.murilobj.domain.enums.StatePayment;
 
+@Entity
 	public class CardPayment extends Payment{
 	private static final long serialVersionUID = 1L;
 	

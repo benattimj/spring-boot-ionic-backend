@@ -3,17 +3,35 @@ package com.murilobj.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+
 import com.murilobj.domain.enums.StatePayment;
 
-public class Payment implements Serializable {
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
+public abstract class Payment implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private StatePayment estado;
+	private Integer estado;
+	
+	@OneToOne
+	@JoinColumn(name="pedido_id")
+	@MapsId
 	private Pedido pedido;
 	
 	public Payment () {
@@ -22,7 +40,7 @@ public class Payment implements Serializable {
 	public Payment(Integer id, StatePayment estado, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estado = estado;
+		this.estado = estado.getCod();
 		this.pedido = pedido;
 	}
 
@@ -35,11 +53,11 @@ public class Payment implements Serializable {
 	}
 
 	public StatePayment getEstado() {
-		return estado;
+		return StatePayment.toEnum(estado);
 	}
 
 	public void setEstado(StatePayment estado) {
-		this.estado = estado;
+		this.estado = estado.getCod();
 	}
 
 	public Pedido getPedido() {

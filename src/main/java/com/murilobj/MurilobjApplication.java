@@ -1,5 +1,6 @@
 package com.murilobj;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,17 +9,24 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.murilobj.domain.Address;
+import com.murilobj.domain.BankSlipPayment;
+import com.murilobj.domain.CardPayment;
 import com.murilobj.domain.Categoria;
 import com.murilobj.domain.City;
 import com.murilobj.domain.Cliente;
 import com.murilobj.domain.Estado;
+import com.murilobj.domain.Payment;
+import com.murilobj.domain.Pedido;
 import com.murilobj.domain.Produto;
+import com.murilobj.domain.enums.StatePayment;
 import com.murilobj.domain.enums.TipoCliente;
 import com.murilobj.repositories.AddressRepository;
 import com.murilobj.repositories.CategoriaRepository;
 import com.murilobj.repositories.CityRepository;
 import com.murilobj.repositories.ClienteRepository;
 import com.murilobj.repositories.EstadoRepository;
+import com.murilobj.repositories.PaymentRepository;
+import com.murilobj.repositories.PedidoRepository;
 import com.murilobj.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -36,6 +44,11 @@ public class MurilobjApplication implements CommandLineRunner {
 	private ClienteRepository clienteRepository;
 	@Autowired
 	private AddressRepository addresRepository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	@Autowired
+	private PaymentRepository paymentRepository;
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(MurilobjApplication.class, args);
@@ -88,10 +101,24 @@ public class MurilobjApplication implements CommandLineRunner {
 		cli2.getAddress().addAll(Arrays.asList(a1,a2));
 		
 	
-		
 		clienteRepository.saveAll(Arrays.asList(cli1,cli2));
 		addresRepository.saveAll(Arrays.asList(a1,a2));
-		 
-	}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+	
+		Pedido ped1 = new Pedido(null, sdf.parse("12/08/2021 00:36"), cli2, a1);
+		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2021 11:11"), cli1, a2);
+		
+		Payment paymnt1 = new CardPayment(null, StatePayment.RECEIVED, ped1, 3);
+		ped1.setPayment(paymnt1);
 
+		Payment paymnt2 = new BankSlipPayment(null,StatePayment.PENDING, ped2, sdf.parse("17/11/2021 01:03"), null);
+		ped2.setPayment(paymnt2);
+
+		cli1.getPedidos().addAll(Arrays.asList(ped1));
+		cli2.getPedidos().addAll(Arrays.asList(ped2));
+			
+		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
+		paymentRepository.saveAll(Arrays.asList(paymnt1,paymnt2));
+}
 }

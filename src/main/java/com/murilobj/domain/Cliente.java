@@ -38,7 +38,7 @@ public class Cliente {
 	@CollectionTable(name="Telephone")
 	private Set<String> telephone = new HashSet<>();
 	
-	
+	@OneToMany(mappedBy="cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Cliente() {
