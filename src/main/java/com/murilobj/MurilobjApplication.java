@@ -15,6 +15,7 @@ import com.murilobj.domain.Categoria;
 import com.murilobj.domain.City;
 import com.murilobj.domain.Cliente;
 import com.murilobj.domain.Estado;
+import com.murilobj.domain.ItemPedido;
 import com.murilobj.domain.Payment;
 import com.murilobj.domain.Pedido;
 import com.murilobj.domain.Produto;
@@ -25,6 +26,7 @@ import com.murilobj.repositories.CategoriaRepository;
 import com.murilobj.repositories.CityRepository;
 import com.murilobj.repositories.ClienteRepository;
 import com.murilobj.repositories.EstadoRepository;
+import com.murilobj.repositories.ItemPedidoRepository;
 import com.murilobj.repositories.PaymentRepository;
 import com.murilobj.repositories.PedidoRepository;
 import com.murilobj.repositories.ProdutoRepository;
@@ -48,6 +50,9 @@ public class MurilobjApplication implements CommandLineRunner {
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PaymentRepository paymentRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
+	
 	
 	
 	public static void main(String[] args) {
@@ -120,5 +125,20 @@ public class MurilobjApplication implements CommandLineRunner {
 			
 		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
 		paymentRepository.saveAll(Arrays.asList(paymnt1,paymnt2));
-}
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);		
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);		
+		ItemPedido ip3 = new ItemPedido(ped1, p2, 100.00, 1, 800.00);		
+
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
+		
+		
+	}
 }
