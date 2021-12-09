@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -28,12 +32,15 @@ public class Pedido implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date instante;
 	
+	@JsonManagedReference
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")
 	private Payment payment;
 	
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn (name="cliente_id")
 	private Cliente cliente;
@@ -42,7 +49,7 @@ public class Pedido implements Serializable {
 	@JoinColumn(name="Delivery_Address_id")
 	private Address DeliveryAddress;
 	
-	@OneToMany(mappedBy="id.pedido")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="id.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
 	
