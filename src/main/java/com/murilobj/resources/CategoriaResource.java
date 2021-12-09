@@ -11,7 +11,7 @@ import com.murilobj.domain.Categoria;
 import com.murilobj.services.CategoriaService;
 
 @RestController
-@RequestMapping("/categoria")
+@RequestMapping("/categorias")
 public class CategoriaResource {
 
 	@Autowired	

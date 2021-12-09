@@ -15,8 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.murilobj.domain.enums.TipoCliente;
 
 
@@ -31,7 +30,7 @@ public class Cliente {
 	private String CPF_or_CNPJ;
 	private Integer tipo;
 	
-	@JsonManagedReference
+
 	@OneToMany(fetch = FetchType.EAGER,mappedBy="cliente")
 	private List<Address> address = new ArrayList<>();
 	
@@ -39,7 +38,7 @@ public class Cliente {
 	@CollectionTable(name="Telephone")
 	private Set<String> telephone = new HashSet<>();
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy="cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
