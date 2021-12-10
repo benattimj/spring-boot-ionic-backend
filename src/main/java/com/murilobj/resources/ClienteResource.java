@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.murilobj.domain.Cliente;
-import com.murilobj.domain.Pedido;
 import com.murilobj.services.ClienteService;
 
 @RestController
