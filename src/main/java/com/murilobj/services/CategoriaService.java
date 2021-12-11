@@ -1,5 +1,6 @@
 package com.murilobj.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +36,18 @@ import com.murilobj.services.exception.DataIntegrityException;
 	
 	public void delete (Integer id) {
 		find(id);
+	
 		try {
 		repo.deleteById(id);
 	}
 		catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Not Possible exclude a Categoria with produtos");
 		}
-}	
-}
+	}	
+	
+	public List<Categoria> findAll(){
+		return repo.findAll();
+	}
+	}
 
 	
