@@ -25,4 +25,9 @@ import com.murilobj.repositories.CategoriaRepository;
 		return repo.save(obj);
 	}
 	
+
+	public Categoria update (Categoria obj) {
+		find(obj.getId());
+		return repo.save(obj);
+	}
 }
