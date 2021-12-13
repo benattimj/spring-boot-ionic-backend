@@ -51,7 +51,7 @@ public class Cliente {
 		this.name = name;
 		this.email = email;
 		this.CPF_or_CNPJ = CPF_or_CNPJ;
-		this.tipo = tipo.getCod();
+		this.tipo = (tipo == null) ? null : tipo.getCod();
 	}
 
 	public Integer getId() {
