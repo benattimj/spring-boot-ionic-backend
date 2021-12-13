@@ -11,8 +11,10 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.murilobj.domain.Categoria;
+import com.murilobj.dto.CategoriaDTO;
 import com.murilobj.repositories.CategoriaRepository;
 import com.murilobj.services.exception.DataIntegrityException;
+import com.murilobj.services.exception.ObjectNotFoundException;
 
 	@Service
 	public class CategoriaService {
@@ -22,7 +24,10 @@ import com.murilobj.services.exception.DataIntegrityException;
 	
 	public Categoria find(Integer id) { 
 		 Optional<Categoria> obj = repo.findById(id); 
-		
+		 if (obj.isEmpty()) {
+				throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id
+						+ ", Tipo: " + Categoria.class.getName());
+			}
 		 return obj.orElse(null); 
 	}
 
@@ -39,8 +44,7 @@ import com.murilobj.services.exception.DataIntegrityException;
 	
 	public void delete (Integer id) {
 		find(id);
-	
-		try {
+			try {
 		repo.deleteById(id);
 	}
 		catch (DataIntegrityViolationException e) {
@@ -56,6 +60,13 @@ import com.murilobj.services.exception.DataIntegrityException;
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}	
+	
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getNome(), objDto.getId());
+		
+		
+	}
+	
 	
 }
 
