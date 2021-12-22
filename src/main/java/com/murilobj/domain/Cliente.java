@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -31,15 +32,15 @@ public class Cliente {
 	private Integer tipo;
 	
 
-	@OneToMany(fetch = FetchType.EAGER,mappedBy="cliente")
-	private List<Address> address = new ArrayList<>();
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="cliente",cascade= CascadeType.ALL)
+		private List<Address> address = new ArrayList<>();
 	
 	@ElementCollection
 	@CollectionTable(name="Telephone")
 	private Set<String> telephone = new HashSet<>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="cliente")
+	@OneToMany(mappedBy="cliente", cascade= CascadeType.ALL)
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Cliente() {

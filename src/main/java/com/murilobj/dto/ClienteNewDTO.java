@@ -2,22 +2,49 @@ package com.murilobj.dto;
 
 import java.io.Serializable;
 
-import com.murilobj.domain.Cliente;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
+
+import com.murilobj.domain.Cliente;
+import com.murilobj.services.validation.ClienteInsert;
+
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message="mandatory filling")
+	@Length(min=5, max=120, message="the size must be between 5 and 120 characters")
 	private String name;
+	
+	
+	@NotEmpty(message="mandatory filling")
+	@Email(message="Invalid Email")
 	private String email;
+	
+	@NotEmpty(message="mandatory filling")
 	private String cpf_or_cnpj;
+
 	private Integer tipo;
+	
+	@NotEmpty(message="mandatory filling")
 	private String town;
+	
+	@NotEmpty(message="mandatory filling")
 	private String postcode;
+	
+	@NotEmpty(message="mandatory filling")
 	private String number;
+	
+	@NotEmpty(message="mandatory filling")
 	private String addressLine;
 	
+	@NotEmpty(message="mandatory filling")
 	private String telephone;
+	
 	private String telephone2;
 	private String telephone3;
 	
