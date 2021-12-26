@@ -61,7 +61,15 @@ public class Pedido implements Serializable {
 		DeliveryAddress = deliveryAddress;
 	}
 
-
+	public double getValueTotal() {
+		double soma = 0.0;
+		for (ItemPedido ip : itens) {
+			soma = soma + ip.getSubtotal();
+		}
+		
+		return soma;
+		
+	}
 	public Integer getId() {
 		return id;
 	}
