@@ -5,9 +5,11 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.murilobj.domain.enums.StatePayment;
 
 @Entity
+@JsonTypeName("BankSlipPayment")
 public class BankSlipPayment extends Payment {
 	private static final long serialVersionUID = 1L;
 	
